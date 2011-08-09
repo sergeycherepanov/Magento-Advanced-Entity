@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Ch
+ * @package     Ch_Branch
+ * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
+ * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
+ */
+-->
+<config>
+    <menu>
+        <ch_branch>
+            <title>Store Branches</title>
+            <sort_order>0</sort_order>
+            <children>
+                <branches translate="title" module="ch_branch">
+                    <title>Manage Branches</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/branch/index</action>
+                </branches>
+            </children>
+        </ch_branch>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <ch_branch translate="title" module="ch_branch">
+                        <title>Store Branches</title>
+                        <children>
+                            <branches translate="title">
+                                <title>Manage Branches</title>
+                                <sort_order>0</sort_order>
+                                <children>
+                                    <save translate="title">
+                                        <title>Save</title>
+                                        <sort_order>0</sort_order>
+                                    </save>
+                                    <delete translate="title">
+                                        <title>Delete</title>
+                                        <sort_order>10</sort_order>
+                                    </delete>
+                                </children>
+                            </branches>
+                        </children>
+                    </ch_branch>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

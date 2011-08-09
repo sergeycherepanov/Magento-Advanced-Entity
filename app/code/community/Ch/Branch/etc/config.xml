@@ -45,4 +45,15 @@
             </ch_branch_setup>
         </resources>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ch_Branch before="Mage_Adminhtml">Ch_Branch_Adminhtml</Ch_Branch>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

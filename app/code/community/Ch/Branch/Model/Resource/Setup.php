@@ -17,6 +17,7 @@ class Ch_Branch_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      *
      * @param Varien_Db_Ddl_Table $table
      * @param string $valueType
+     * @param int|null $valueSize
      * @return void
      */
     public function createAttributeValueTable($table, $valueType, $valueSize = null)
@@ -51,6 +52,7 @@ class Ch_Branch_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'nullable'  => false
                 ));
 
+        $table->addIndex('ATTRIBUTE_VALUE', array('attribute_id', 'store_id', 'entity_id'), 'unique');
         $this->getConnection()->createTable($table);
 
         // Temporary fix for AUTO_INCREMENT property
@@ -72,8 +74,9 @@ class Ch_Branch_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'branch'                       => array(
                 'entity_model'                   => 'ch_branch/branch',
                 'table'                          => 'ch_branch/branch',
+                'entity_attribute_collection'    => 'ch_branch/branch_attribute_collection',
                 'attributes'                     => array(
-                    'name'           => array(
+                    'name' => array(
                         'type'               => 'varchar',
                         'label'              => 'Branch Name',
                         'input'              => 'select',
