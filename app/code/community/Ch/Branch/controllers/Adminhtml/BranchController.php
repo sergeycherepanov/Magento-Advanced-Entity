@@ -8,6 +8,7 @@
 
 class Ch_Branch_Adminhtml_BranchController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
      * Branch list page
      *

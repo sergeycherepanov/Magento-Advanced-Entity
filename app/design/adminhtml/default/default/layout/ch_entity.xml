@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Ch
+ * @package     Ch_Entity
+ * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
+ * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
+ */
+-->
+<layout>
+    <adminhtml_entity_index>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_entity" name="entity_grid" />
+        </reference>
+    </adminhtml_entity_index>
+</layout>

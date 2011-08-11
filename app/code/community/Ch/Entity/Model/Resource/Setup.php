@@ -1,15 +1,12 @@
 <?php
 /**
  * @category    Ch
- * @package     Ch_Branch
+ * @package     Ch_Entity
  * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-/**
- * Install model
- */
-class Ch_Branch_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
+class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 {
 
     /**
@@ -71,14 +68,14 @@ class Ch_Branch_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     public function getDefaultEntities()
     {
         $entities = array(
-            'branch'                       => array(
-                'entity_model'                   => 'ch_branch/branch',
-                'table'                          => 'ch_branch/branch',
-                'entity_attribute_collection'    => 'ch_branch/branch_attribute_collection',
+            'entity'                       => array(
+                'entity_model'                   => 'ch_entity/entity',
+                'table'                          => 'ch_entity/entity',
+                'entity_attribute_collection'    => 'ch_entity/entity_attribute_collection',
                 'attributes'                     => array(
                     'name' => array(
                         'type'               => 'varchar',
-                        'label'              => 'Branch Name',
+                        'label'              => 'Entity Name',
                         'input'              => 'select',
                         'source'             => '',
                         'backend'            => '',
