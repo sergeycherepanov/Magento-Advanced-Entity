@@ -9,12 +9,12 @@
 -->
 <config>
     <modules>
-        <Ch_Branch>
+        <Ch_Entity>
             <active>true</active>
             <codePool>community</codePool>
             <depends>
                 <Mage_Core/>
             </depends>
-        </Ch_Branch>
+        </Ch_Entity>
     </modules>
 </config>

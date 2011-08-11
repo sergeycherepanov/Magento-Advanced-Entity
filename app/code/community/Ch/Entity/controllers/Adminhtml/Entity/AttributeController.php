@@ -1,15 +1,15 @@
 <?php
 /**
  * @category    Ch
- * @package     Ch_Branch
+ * @package     Ch_Entity
  * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Branch_Adminhtml_BranchController extends Mage_Adminhtml_Controller_Action
+class Ch_Entity_Adminhtml_Entity_AttributeController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Branch list page
+     * List attributes
      *
      * @return void
      */
@@ -21,7 +21,7 @@ class Ch_Branch_Adminhtml_BranchController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Add new branch
+     * Add new attribute
      *
      * @return void
      */
@@ -31,7 +31,7 @@ class Ch_Branch_Adminhtml_BranchController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Edit branch
+     * Edit attribute
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class Ch_Branch_Adminhtml_BranchController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Delete branch
+     * Delete attribute
      *
      * @return void
      */

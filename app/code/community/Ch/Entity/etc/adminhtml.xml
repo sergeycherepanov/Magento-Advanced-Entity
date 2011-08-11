@@ -2,34 +2,34 @@
 <!--
 /**
  * @category    Ch
- * @package     Ch_Branch
+ * @package     Ch_Entity
  * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 -->
 <config>
     <menu>
-        <ch_branch>
-            <title>Store Branches</title>
+        <ch_entity>
+            <title>Advanced Entity</title>
             <sort_order>0</sort_order>
             <children>
-                <branches translate="title" module="ch_branch">
-                    <title>Manage Branches</title>
+                <entities translate="title" module="ch_entity">
+                    <title>Manage Entities</title>
                     <sort_order>0</sort_order>
-                    <action>adminhtml/branch/index</action>
-                </branches>
+                    <action>adminhtml/entity/index</action>
+                </entities>
             </children>
-        </ch_branch>
+        </ch_entity>
     </menu>
     <acl>
         <resources>
             <admin>
                 <children>
-                    <ch_branch translate="title" module="ch_branch">
-                        <title>Store Branches</title>
+                    <ch_entity translate="title" module="ch_entity">
+                        <title>Advanced Entity</title>
                         <children>
-                            <branches translate="title">
-                                <title>Manage Branches</title>
+                            <entities translate="title">
+                                <title>Manage Entities</title>
                                 <sort_order>0</sort_order>
                                 <children>
                                     <save translate="title">
@@ -41,9 +41,9 @@
                                         <sort_order>10</sort_order>
                                     </delete>
                                 </children>
-                            </branches>
+                            </entities>
                         </children>
-                    </ch_branch>
+                    </ch_entity>
                 </children>
             </admin>
         </resources>

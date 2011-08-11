@@ -1,11 +1,11 @@
 <?php
-/** @var $this Ch_Branch_Model_Resource_Setup */
+/** @var $this Ch_Entity_Model_Resource_Setup */
 $this->startSetup();
 /** @var $connection Varien_Db_Adapter_Pdo_Mysql */
 $connection      = $this->getConnection();
 
 // Create main table
-$mainTableName = $this->getTable('ch_branch/branch');
+$mainTableName = $this->getTable('ch_entity/entity');
 /** @var $mainTable Varien_Db_Ddl_Table */
 $mainTable     = $connection->newTable($mainTableName);
 

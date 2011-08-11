@@ -1,15 +1,16 @@
 <?php
 /**
  * @category    Ch
- * @package     Ch_Branch
+ * @package     Ch_Entity
  * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Branch_Adminhtml_Branch_AttributeController extends Mage_Adminhtml_Controller_Action
+class Ch_Entity_Adminhtml_EntityController extends Mage_Adminhtml_Controller_Action
 {
+
     /**
-     * List attributes
+     * Entity list page
      *
      * @return void
      */
@@ -21,17 +22,17 @@ class Ch_Branch_Adminhtml_Branch_AttributeController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * Add new attribute
+     * Add new entity
      *
      * @return void
      */
-    public function addAction()
+    public function newAction()
     {
         $this->_forward('edit');
     }
 
     /**
-     * Edit attribute
+     * Edit entity
      *
      * @return void
      */
@@ -43,7 +44,7 @@ class Ch_Branch_Adminhtml_Branch_AttributeController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * Delete attribute
+     * Delete entity
      *
      * @return void
      */
