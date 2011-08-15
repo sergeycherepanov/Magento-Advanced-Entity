@@ -22,9 +22,8 @@ class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Ch_Entity_Model_Resource_Entity_Collection */
-        $collection = Mage::getResourceModel('ch_entity/entity_collection');
-        $collection->addAttributeToSelect(array('name'));
+        /** @var $collection Ch_Entity_Model_Resource_Entity_Type_Collection */
+        $collection = Mage::getResourceModel('ch_entity/entity_type_collection');
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -44,10 +43,18 @@ class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_
             'width' => '50px',
         ));
 
-        $this->addColumn('name', array(
-            'header'    =>  $this->__('Name'),
+        $this->addColumn('type_id', array(
+            'header'    =>  $this->__('Type ID'),
             'align'     =>  'left',
-            'index'     =>  'name',
+            'index'     =>  'type_id',
+            'type'  => 'number',
+            'width' => '50px',
+        ));
+
+        $this->addColumn('type_code', array(
+            'header'    =>  $this->__('Type Code'),
+            'align'     =>  'left',
+            'index'     =>  'type_code',
         ));
 
         $this->addColumn('action', array(

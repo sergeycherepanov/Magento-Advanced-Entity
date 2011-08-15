@@ -32,7 +32,8 @@
             <ch_entity_resource>
                 <class>Ch_Entity_Model_Resource</class>
                 <entities>
-                    <entity><table>ch_entity_entity</table></entity>
+                    <entity><table>advanced_entity</table></entity>
+                    <entity_type><table>advanced_entity_type</table></entity_type>
                 </entities>
             </ch_entity_resource>
         </models>

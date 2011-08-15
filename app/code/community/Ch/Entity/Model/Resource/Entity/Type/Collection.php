@@ -6,11 +6,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Model_Resource_Entity extends Mage_Eav_Model_Entity_Abstract
+class Ch_Entity_Model_Resource_Entity_Type_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-    public function __construct()
+    /**
+     * Resource model initialization
+     */
+    public function _construct()
     {
-        $this->setType('advanced_entity');
-        $this->setConnection('core_read', 'core_write');
+        $this->_init('ch_entity/entity_type');
     }
 }

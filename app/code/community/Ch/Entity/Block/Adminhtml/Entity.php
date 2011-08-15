@@ -12,7 +12,7 @@ class Ch_Entity_Block_Adminhtml_Entity extends Mage_Adminhtml_Block_Widget_Grid_
     {
         $this->_controller = 'adminhtml_entity';
         $this->_blockGroup = 'ch_entity';
-        $this->_headerText = $this->__('Manage Entityes');
+        $this->_headerText = $this->__('Manage Entities');
         $this->_addButtonLabel = $this->__('Add New');
         parent::__construct();
     }

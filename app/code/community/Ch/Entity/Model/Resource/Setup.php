@@ -68,7 +68,7 @@ class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     public function getDefaultEntities()
     {
         $entities = array(
-            'entity'                       => array(
+            'advanced_entity'                       => array(
                 'entity_model'                   => 'ch_entity/entity',
                 'table'                          => 'ch_entity/entity',
                 'entity_attribute_collection'    => 'ch_entity/entity_attribute_collection',
