@@ -15,9 +15,14 @@
             <children>
                 <entities translate="title" module="ch_entity">
                     <title>Manage Entities</title>
-                    <sort_order>0</sort_order>
+                    <sort_order>10</sort_order>
                     <action>adminhtml/entity/index</action>
                 </entities>
+                <attributes translate="title" module="ch_entity">
+                    <title>Manage Attributes</title>
+                    <sort_order>20</sort_order>
+                    <action>adminhtml/attribute/index</action>
+                </attributes>
             </children>
         </ch_entity>
     </menu>

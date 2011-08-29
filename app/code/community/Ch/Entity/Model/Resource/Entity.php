@@ -8,9 +8,10 @@
 
 class Ch_Entity_Model_Resource_Entity extends Mage_Eav_Model_Entity_Abstract
 {
-    public function __construct()
+    public function __construct($data)
     {
-        $this->setType('advanced_entity');
+        $this->setType($data['entity_type_code']);
         $this->setConnection('core_read', 'core_write');
+        parent::__construct();
     }
 }

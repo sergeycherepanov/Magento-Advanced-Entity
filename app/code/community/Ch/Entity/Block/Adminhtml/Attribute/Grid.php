@@ -6,13 +6,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setId('entity_grid');
-        $this->setDefaultSort('entity_id');
+        $this->setId('attribute_grid');
+        $this->setDefaultSort('attribute_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
@@ -23,8 +23,8 @@ class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Ch_Entity_Model_Resource_Entity_Type_Collection */
-        $collection = Mage::getResourceModel('ch_entity/entity_type_collection');
+        /** @var $collection Ch_Entity_Model_Resource_Entity_Attribute_Collection */
+        $collection = Mage::getResourceModel('ch_entity/entity_attribute_collection');
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -36,32 +36,32 @@ class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('attribute_id', array(
             'header'    =>  $this->__('ID'),
             'align'     =>  'left',
-            'index'     =>  'entity_id',
+            'index'     =>  'attribute_id',
             'type'  => 'number',
             'width' => '50px',
         ));
 
         $this->addColumn('entity_type_id', array(
-            'header'    =>  $this->__('Type ID'),
+            'header'    =>  $this->__('Entity Type ID'),
             'align'     =>  'left',
             'index'     =>  'entity_type_id',
             'type'  => 'number',
             'width' => '50px',
         ));
 
-        $this->addColumn('entity_type_code', array(
+        $this->addColumn('attribute_code', array(
             'header'    =>  $this->__('Code'),
             'align'     =>  'left',
-            'index'     =>  'entity_type_code',
+            'index'     =>  'attribute_code',
         ));
 
-        $this->addColumn('entity_type_name', array(
-            'header'    =>  $this->__('Name'),
+        $this->addColumn('frontend_label', array(
+            'header'    =>  $this->__('Frontend Label'),
             'align'     =>  'left',
-            'index'     =>  'entity_type_name',
+            'index'     =>  'frontend_label',
         ));
 
         $this->addColumn('action', array(
@@ -90,5 +90,10 @@ class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current' => true));
     }
 }

@@ -6,7 +6,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Block_Adminhtml_Entity_Edit
+class Ch_Entity_Block_Adminhtml_Attribute_Edit
     extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     /**
@@ -18,12 +18,12 @@ class Ch_Entity_Block_Adminhtml_Entity_Edit
 
         $this->_objectId   = 'id';
         $this->_blockGroup = 'ch_entity';
-        $this->_controller = 'adminhtml_entity';
+        $this->_controller = 'adminhtml_attribute';
 
         $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('delete', 'label', $this->__('Delete'));
 
-        $entityModel = Mage::registry('entity');
+        $attributeModel = Mage::registry('attribute');
 
         $this->_addButton('saveandcontinue', array(
             'label'     => $this->__('Save And Continue Edit'),

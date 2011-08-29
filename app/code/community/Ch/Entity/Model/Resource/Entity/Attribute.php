@@ -6,7 +6,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Model_Resource_Entity_Attribute extends Mage_Eav_Model_Mysql4_Entity_Attribute
+/**
+ * @method string getFrontendInput()
+ */
+class Ch_Entity_Model_Resource_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
 
 }

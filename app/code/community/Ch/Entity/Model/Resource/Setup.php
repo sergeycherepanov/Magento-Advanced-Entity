@@ -9,6 +9,13 @@
 class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 {
 
+    protected $_entityConfiguration = array(
+        'entity_model'                => 'ch_entity/entity',
+        'table'                       => 'ch_entity/entity',
+        'entity_attribute_collection' => 'ch_entity/entity_attribute_collection',
+        'attributes'                  => array(),
+    );
+
     /**
      * Create table for attribute value
      *
@@ -49,7 +56,7 @@ class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'nullable'  => false
                 ));
 
-        $table->addIndex('ATTRIBUTE_VALUE', array('attribute_id', 'store_id', 'entity_id'), 'unique');
+        $table->addIndex('ATTRIBUTE_VALUE_IDX', array('attribute_id', 'store_id', 'entity_id'), array('unique'));
         $this->getConnection()->createTable($table);
 
         // Temporary fix for AUTO_INCREMENT property
@@ -87,6 +94,11 @@ class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             ),
         );
         return $entities;
+    }
+
+    public function getEntityConfiguration()
+    {
+        return $this->_entityConfiguration;
     }
 }
 
