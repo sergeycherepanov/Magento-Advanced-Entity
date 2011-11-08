@@ -13,6 +13,9 @@
  */
 class Ch_Entity_Model_Entity extends Mage_Core_Model_Abstract
 {
+    /** @var string */
+    protected $_eventPrefix = 'advanced_entity';
+
     /**
      * Initialize resource model
      *

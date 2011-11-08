@@ -11,6 +11,9 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
 {
     /** @var Ch_Entity_Helper_Data */
     protected $_helper;
+    /** @var Ch_Entity_Model_Entity_Attribute */
+    protected $_attribute;
+    protected $_isEditMode = false;
 
     /**
      * @return void
@@ -19,6 +22,12 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
     {
         $this->_helper    = Mage::helper('ch_entity');
         $this->_attribute = Mage::registry('entity_attribute');
+        if (!$this->_attribute) {
+            $this->_attribute = new Varien_Object();
+        }
+        if ($this->_attribute->getId() > 0) {
+            $this->_isEditMode = true;
+        }
         parent::_construct();
     }
 
@@ -29,10 +38,13 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
      */
     protected function _prepareForm()
     {
-        $form      = new Varien_Data_Form();
-        $attribute = new Varien_Object();
+        $form        = new Varien_Data_Form();
+        $attribute   = $this->_attribute;
+        $isEditMode  = $this->_isEditMode;
 
-        $attribute->setEntityTypeId($this->getRequest()->getParam('entity_type'));
+        if (!$isEditMode) {
+            $attribute->setEntityTypeId($this->getRequest()->getParam('entity_type'));
+        }
 
         $this->setForm($form);
 
@@ -42,16 +54,13 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
         );
 
         $fieldset->addField('entity_type_id', 'hidden', array(
-            'name'      => 'entity_type_id',
-            'required'  => true,
+            'name'      => 'entity_type_id'
         ));
-
-        $fieldset->addField('attribute_code', 'text', array(
-            'name'      => 'attribute_code',
-            'label'     => $this->__('Attribute Code'),
-            'title'     => $this->__('Attribute Code'),
-            'required'  => true,
-        ));
+        if ($isEditMode) {
+            $fieldset->addField('attribute_id', 'hidden', array(
+                'name'      => 'attribute_id'
+            ));
+        }
 
         $fieldset->addField('frontend_label', 'text', array(
             'name'      => 'frontend_label',
@@ -59,6 +68,24 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
             'title'     => $this->__('Frontend Label'),
             'required'  => true,
         ));
+
+        if ($isEditMode) {
+            $fieldset->addField('attribute_code', 'text', array(
+                'name'      => 'attribute_code',
+                'label'     => $this->__('Attribute Code'),
+                'title'     => $this->__('Attribute Code'),
+                'required'  => true,
+                'readonly'  => true,
+                'style'     => 'background:#eee;color:#666;'
+            ));
+        } else {
+            $fieldset->addField('attribute_code', 'text', array(
+                'name'      => 'attribute_code',
+                'label'     => $this->__('Attribute Code'),
+                'title'     => $this->__('Attribute Code'),
+                'required'  => true,
+            ));
+        }
 
         /** @var $inputTypes Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype */
         $inputTypes = Mage::getModel('eav/adminhtml_system_config_source_inputtype');

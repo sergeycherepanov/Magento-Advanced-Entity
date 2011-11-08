@@ -2,62 +2,97 @@
 /** @var $this Ch_Entity_Model_Resource_Setup */
 $this->startSetup();
 /** @var $connection Varien_Db_Adapter_Pdo_Mysql */
-$connection      = $this->getConnection();
+$connection          = $this->getConnection();
 
-// Create main table
-$mainTableName = $this->getTable('ch_entity/entity');
-/** @var $mainTable Varien_Db_Ddl_Table */
-$mainTable     = $connection->newTable($mainTableName);
+// Create tables
+$entityTableName     = $this->getTable('ch_entity/entity');
+$entityTypeTableName = $this->getTable('ch_entity/entity_type');
 
-$mainTable->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+/** @var $entityTable Varien_Db_Ddl_Table */
+$entityTable         = $connection->newTable($entityTableName);
+/** @var $entityTable Varien_Db_Ddl_Table */
+$entityTypeTable     = $connection->newTable($entityTypeTableName);
+
+$entityTable->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         ));
 
-$mainTable->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+$entityTable->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => false,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => false,
         ));
 
-$mainTable->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+$entityTable->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => false,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => false,
         ));
 
-$mainTable->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+$entityTable->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'identity'  => false,
         'unsigned'  => false,
         'nullable'  => false,
         'primary'   => false,
         ));
 
-$mainTable->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+$entityTable->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'identity'  => false,
         'unsigned'  => false,
         'nullable'  => false,
         'primary'   => false,
         ));
-$mainTable->setOption('auto_increment', 1);
-$connection->createTable($mainTable);
+$entityTable->setOption('auto_increment', 1);
+$connection->createTable($entityTable);
 // Temporary fix for AUTO_INCREMENT property
-$connection->changeColumn($mainTableName, 'entity_id', 'entity_id', 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT');
+$connection->changeColumn($entityTableName, 'entity_id', 'entity_id', 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT');
+
+$entityTypeTable->addColumn('advanced_type_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'identity'  => true,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+));
+
+$entityTypeTable->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'identity'  => false,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => false,
+));
+
+$entityTypeTable->addColumn('entity_type_code', Varien_Db_Ddl_Table::TYPE_VARCHAR, 128, array(
+        'nullable'  => false,
+));
+
+$entityTypeTable->addColumn('entity_type_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 128, array(
+        'nullable'  => false,
+));
+
+$entityTypeTable->setOption('auto_increment', 1);
+$connection->createTable($entityTypeTable);
+// Temporary fix for AUTO_INCREMENT property
+$connection->changeColumn($entityTypeTableName, 'advanced_type_id', 'advanced_type_id',
+                          'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT');
+
 
 // Create int value table
-$tableName = $this->getTable($mainTableName . '_int');
+$tableName = $this->getTable($entityTableName . '_int');
 /** @var $table Varien_Db_Ddl_Table */
 $table = $connection->newTable($tableName);
 $this->createAttributeValueTable($table, Varien_Db_Ddl_Table::TYPE_INTEGER);
 
 // Create varchar value table
-$tableName = $this->getTable($mainTableName . '_varchar');
+$tableName = $this->getTable($entityTableName . '_varchar');
 /** @var $table Varien_Db_Ddl_Table */
 $table = $connection->newTable($tableName);
 $this->createAttributeValueTable($table, Varien_Db_Ddl_Table::TYPE_VARCHAR, 255);
+
+
 
 $this->installEntities();

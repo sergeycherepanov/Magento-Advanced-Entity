@@ -78,6 +78,7 @@ class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'advanced_entity'                       => array(
                 'entity_model'                   => 'ch_entity/entity',
                 'table'                          => 'ch_entity/entity',
+                'attribute_model'                => 'ch_entity/entity_attribute',
                 'entity_attribute_collection'    => 'ch_entity/entity_attribute_collection',
                 'attributes'                     => array(
                     'name' => array(
@@ -96,6 +97,9 @@ class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         return $entities;
     }
 
+    /**
+     * @return array
+     */
     public function getEntityConfiguration()
     {
         return $this->_entityConfiguration;

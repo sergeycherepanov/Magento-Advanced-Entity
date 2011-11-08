@@ -36,6 +36,10 @@ class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
         return $this->_helper;
     }
 
+    /**
+     * @param null $entityTypeCode
+     * @return Ch_Entity_Model_Entity
+     */
     public function getEntityModel($entityTypeCode = null)
     {
         if (!$entityTypeCode) {
@@ -47,6 +51,18 @@ class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
         /** @var $entityModel Ch_Entity_Model_Entity */
         $entityModel = Mage::getModel('ch_entity/entity', array('entity_type_code' => $entityTypeCode));
         return $entityModel;
+    }
+
+    /**
+     * @return Mage_Core_Model_Abstract
+     */
+    public function _beforeDelete()
+    {
+        /** @var $eavEntityType Mage_Eav_Model_Entity_Type */
+        $eavEntityType = Mage::getModel('eav/entity_type');
+        $eavEntityType->load($this->getEntityTypeId());
+        $eavEntityType->delete();
+        return parent::_beforeDelete();
     }
 }
 

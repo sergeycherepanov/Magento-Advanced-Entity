@@ -9,7 +9,8 @@
 /**
  * @method string getFrontendInput()
  */
-class Ch_Entity_Model_Resource_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute
+class Ch_Entity_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-
+    /** @var string */
+    protected $_eventPrefix = 'advanced_entity_attribute';
 }

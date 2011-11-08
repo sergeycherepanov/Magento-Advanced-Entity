@@ -17,9 +17,9 @@ class Ch_Entity_Model_Resource_Entity_Type extends Mage_Core_Model_Mysql4_Abstra
      *
      * @return void
      */
-    function _construct()
+    public function _construct()
     {
-        $this->_init('ch_entity/entity_type', 'id');
+        $this->_init('ch_entity/entity_type', 'advanced_type_id');
     }
 }
 

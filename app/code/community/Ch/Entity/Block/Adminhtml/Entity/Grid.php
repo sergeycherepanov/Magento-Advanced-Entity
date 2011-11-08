@@ -8,11 +8,14 @@
 
 class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Initialize grid
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('entity_grid');
-        $this->setDefaultSort('entity_id');
+        $this->setDefaultSort('advanced_type_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
@@ -36,10 +39,10 @@ class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('advanced_type_id', array(
             'header'    =>  $this->__('ID'),
             'align'     =>  'left',
-            'index'     =>  'entity_id',
+            'index'     =>  'advanced_type_id',
             'type'  => 'number',
             'width' => '50px',
         ));
