@@ -6,7 +6,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_Action
+class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_Controller_Action
 {
 
     /**
@@ -52,7 +52,7 @@ class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_
         $entityTypeId = $this->getRequest()->getParam('entity_type');
         $attributeId  = $this->getRequest()->getParam('id');
 
-        /** @var $attributeModel Ch_Entity_Model_Resource_Entity_Attribute */
+        /** @var $attributeModel Ch_Entity_Model_Entity_Attribute */
         $attributeModel = Mage::getModel('ch_entity/entity_attribute');
         $attributeModel->load($attributeId);
 
@@ -68,10 +68,6 @@ class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_
 
         $this->loadLayout();
         $this->initLayoutMessages('adminhtml/session');
-
-        $this->_addContent($this->getLayout()->createBlock('ch_entity/adminhtml_attribute_edit'));
-        $this->_addLeft($this->getLayout()->createBlock('ch_entity/adminhtml_attribute_edit_tabs'));
-
         $this->renderLayout();
     }
 
@@ -81,11 +77,12 @@ class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_
     public function saveAction()
     {
         try {
+            $helper       = $this->_getHelper();
             $entityTypeId = $this->getRequest()->getParam('entity_type_id');
             $attributeId  = $this->getRequest()->getParam('attribute_id');
             $data         = $this->getRequest()->getPost();
-
-            $helper = $this->_getHelper();
+            /** @var $setupModel Ch_Entity_Model_Resource_Setup */
+            $setupModel   = Mage::getResourceModel('ch_entity/setup', 'core_write');
 
             if (empty($data)) {
                 Mage::throwException($this->_getHelper()->__('Wrong request.'));
@@ -95,7 +92,7 @@ class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_
             $session = Mage::getSingleton('adminhtml/session');
 
             /* @var $attributeModel Ch_Entity_Model_Entity_Attribute */
-            $attributeModel = Mage::getModel('ch_entity/entity_attribute');
+            $attributeModel = $this->_getAttributeModel();
 
             if ($attributeId) {
                 $attributeModel->load($attributeId);
@@ -132,23 +129,44 @@ class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_
                     $this->_redirect('*/*/edit', array('attribute_id' => $attributeId, '_current' => true));
                     return;
                 }
-                $attributeModel->getBackendTypeByInput($data['frontend_input']);
+                $backendType        = $attributeModel->getBackendTypeByInput($data['frontend_input']);
+                $attributeSetId     = $entity->getEntityType()->getDefaultAttributeSetId();
+                $attributeGroupId   = $setupModel->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
                 $attributeModel->addData(
                     array(
                         'frontend_label' => $data['frontend_label'],
+                        'frontend_input' => $data['frontend_input'],
                         'attribute_code' => $attributeCode,
-                        'backend_type'   => $attributeModel->getBackendTypeByInput($data['frontend_input']),
+                        'backend_type'   => $backendType,
                         'attribute_code' => $attributeCode,
                         'entity_type'    => $entity->getEntityType(),
                         'entity_type_id' => $entity->getTypeId(),
+                        'attribute_set_id'   => $attributeSetId,
+                        'attribute_group_id' => $attributeGroupId,
+                        'is_user_defined'    => 1,
                     )
                 );
+            }
+            $frontendInput = $attributeModel->getData('frontend_input');
+            if ('select' == $frontendInput || 'multiselect' == $frontendInput) {
+                if (isset($data['option'])) {
+                    $attributeModel->setData('option', $data['option']);
+                    if (isset($data['default'])) {
+                        $attributeModel->setData('default', $data['default']);
+                    }
+                } else {
+                    
+                }
             }
             // Save attribute model
             $attributeModel->save();
 
-            $this->_getSession()->addSuccess('Attribute saved successfully.');
-            $this->_redirect('*/*');
+            $this->_getSession()->addSuccess($this->_getHelper()->__('Attribute saved successfully.'));
+            if ( $this->getRequest()->getParam('back', false) ) {
+                $this->_redirect('*/*/edit', array('id' => $attributeModel->getId(), '_current'=>true));
+            } else {
+                $this->_redirect('*/*');
+            }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectReferer();
@@ -159,12 +177,25 @@ class Ch_Entity_Adminhtml_AttributeController extends Mage_Adminhtml_Controller_
     }
 
     /**
+     * @return Ch_Entity_Model_Entity_Attribute
+     */
+    protected function _getAttributeModel()
+    {
+        return Mage::getModel('ch_entity/entity_attribute');
+    }
+
+    /**
      * Delete entity
      *
      * @return void
      */
     public function deleteAction()
     {
+        /** @var $attributeModel Ch_Entity_Model_Entity_Attribute */
+        $attributeModel = $this->_getAttributeModel();
+        $attributeModel->load($this->getRequest()->getParam('id'));
+        $attributeModel->delete();
+        $this->_getSession()->addSuccess($this->_getHelper()->__('Attribute deleted successfully.'));
         $this->_redirect('*/*');
     }
 }

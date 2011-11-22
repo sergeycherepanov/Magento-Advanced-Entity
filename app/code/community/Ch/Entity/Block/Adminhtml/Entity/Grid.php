@@ -6,6 +6,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
+/**
+ * @method Ch_Entity_Block_Adminhtml_Entity_Grid setUseAjax(boolean $flag)
+ */
 class Ch_Entity_Block_Adminhtml_Entity_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**

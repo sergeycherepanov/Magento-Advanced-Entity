@@ -9,6 +9,9 @@
 class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Type
         extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @return Mage_Core_Block_Abstract
+     */
     protected function _prepareLayout()
     {
         $action = 'setLocation((new Template(\''
@@ -25,6 +28,9 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Type
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Form
+     */
     protected function _prepareForm()
     {
         $form      = new Varien_Data_Form();

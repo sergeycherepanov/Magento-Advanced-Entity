@@ -8,6 +8,9 @@
 
 class Ch_Entity_Block_Adminhtml_Entity extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+    /**
+     *  Initialize class prefixes and labels
+     */
     public function __construct()
     {
         $this->_controller = 'adminhtml_entity';

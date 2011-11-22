@@ -6,17 +6,17 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Block_Adminhtml_Attribute extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Ch_Entity_Block_Adminhtml_Entity_Manage extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     /**
      *  Initialize class prefixes and labels
      */
     public function __construct()
     {
-        $this->_controller = 'adminhtml_attribute';
+        $this->_controller = 'adminhtml_entity_manage';
         $this->_blockGroup = 'ch_entity';
-        $this->_headerText = $this->__('Manage Attributes');
-        $this->_addButtonLabel = $this->__('Add New');
+        $this->_headerText = $this->__('Manage Entities');
         parent::__construct();
+        $this->removeButton('add');
     }
 }

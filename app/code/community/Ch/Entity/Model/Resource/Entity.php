@@ -21,4 +21,14 @@ class Ch_Entity_Model_Resource_Entity extends Mage_Eav_Model_Entity_Abstract
         $this->setConnection('core_read', 'core_write');
         parent::__construct();
     }
+
+    /**
+     * Get default attribute source model
+     *
+     * @return string
+     */
+    public function getDefaultAttributeSourceModel()
+    {
+        return 'eav/entity_attribute_source_table';
+    }
 }

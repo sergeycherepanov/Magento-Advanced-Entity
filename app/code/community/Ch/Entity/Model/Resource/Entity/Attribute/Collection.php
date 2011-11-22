@@ -8,6 +8,9 @@
 
 class Ch_Entity_Model_Resource_Entity_Attribute_Collection extends Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
 {
+    /**
+     * @return void
+     */
     protected function _beforeLoad()
     {
         /** @var $entityTypeCollection Ch_Entity_Model_Resource_Entity_Type_Collection */

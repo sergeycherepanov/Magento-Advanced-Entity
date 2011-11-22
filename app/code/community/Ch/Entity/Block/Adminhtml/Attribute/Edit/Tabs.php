@@ -41,17 +41,24 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tabs
      */
     protected function _prepareLayout()
     {
+        /** @var $layout Mage_Core_Model_Layout */
+        $layout = $this->getLayout();
         if (!$this->getAttributeModel()->getEntityTypeId()) {
             $this->addTab('main_section', array(
                 'label'     =>  $this->__('Attribute information'),
                 'title'     =>  $this->__('Attribute information'),
-                'content'   =>  $this->getLayout()->createBlock('ch_entity/adminhtml_attribute_edit_tab_type')->toHtml(),
+                'content'   =>  $layout->createBlock('ch_entity/adminhtml_attribute_edit_tab_type')->toHtml(),
             ));
         } else {
             $this->addTab('main_section', array(
                 'label'     =>  $this->__('Attribute information'),
                 'title'     =>  $this->__('Attribute information'),
-                'content'   =>  $this->getLayout()->createBlock('ch_entity/adminhtml_attribute_edit_tab_main')->toHtml(),
+                'content'   =>  $layout->createBlock('ch_entity/adminhtml_attribute_edit_tab_main')->toHtml(),
+            ));
+            $this->addTab('labels_section', array(
+                'label'     =>  $this->__('Manage Label / Options'),
+                'title'     =>  $this->__('Manage Label / Options'),
+                'content'   =>  $layout->createBlock('ch_entity/adminhtml_attribute_edit_tab_label')->toHtml(),
             ));
         }
         $activeTabId = htmlspecialchars($this->getRequest()->getParam('tab'));

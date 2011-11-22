@@ -23,7 +23,7 @@ class Ch_Entity_Block_Adminhtml_Entity_Edit
         $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('delete', 'label', $this->__('Delete'));
 
-        $entityModel = Mage::registry('entity');
+        //$entityModel = Mage::registry('entity');
 
         $this->_addButton('saveandcontinue', array(
             'label'     => $this->__('Save And Continue Edit'),
@@ -38,7 +38,7 @@ class Ch_Entity_Block_Adminhtml_Entity_Edit
         ";
     }
 
-    public function getHeaderText(){
+   /* public function getHeaderText(){
 
-    }
+    }*/
 }

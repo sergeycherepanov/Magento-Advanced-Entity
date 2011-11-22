@@ -8,19 +8,62 @@
  */
 -->
 <layout>
-    <adminhtml_entity_index>
-        <reference name="content">
-            <block type="ch_entity/adminhtml_entity" name="entity_grid" />
-        </reference>
-    </adminhtml_entity_index>
 
-    <adminhtml_attribute_index>
+    <adminhtml_entity_manage_index>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_entity_manage" name="entity_type_grid" />
+        </reference>
+    </adminhtml_entity_manage_index>
+
+    <adminhtml_entity_manage_manage>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_entity_manage_entity" name="entity_grid" />
+        </reference>
+    </adminhtml_entity_manage_manage>
+
+    <adminhtml_entity_manage_edit>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_entity_manage_entity_edit" name="edit_entity" />
+        </reference>
+        <reference name="left">
+            <block type="ch_entity/adminhtml_entity_manage_entity_edit_tabs" name="edit_entity_tabs"/>
+        </reference>
+    </adminhtml_entity_manage_edit>
+
+    <adminhtml_configure_entity_index>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_entity" name="entity_type_grid" />
+        </reference>
+    </adminhtml_configure_entity_index>
+
+    <adminhtml_configure_entity_edit>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_entity_edit" name="edit_entity_type" />
+        </reference>
+        <reference name="left">
+            <block type="ch_entity/adminhtml_entity_edit_tabs" name="edit_entity_type_tabs"/>
+        </reference>
+    </adminhtml_configure_entity_edit>
+
+    <adminhtml_configure_attribute_index>
         <reference name="content">
             <block type="ch_entity/adminhtml_attribute" name="attribute_grid" />
         </reference>
-    </adminhtml_attribute_index>
+    </adminhtml_configure_attribute_index>
 
-    <adminhtml_attribute_grid>
+    <adminhtml_configure_attribute_grid>
         <block type="ch_entity/adminhtml_attribute_grid" name="root" />
-    </adminhtml_attribute_grid>
+    </adminhtml_configure_attribute_grid>
+
+    <adminhtml_configure_attribute_edit>
+        <reference name="content">
+            <block type="ch_entity/adminhtml_attribute_edit" name="attribute_edit_content"/>
+        </reference>
+        <reference name="left">
+            <block type="ch_entity/adminhtml_attribute_edit_tabs" name="attribute_edit_tabs"/>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" name="attribute_edit_js" template="ch_entity/attribute/js.phtml"/>
+        </reference>
+    </adminhtml_configure_attribute_edit>
 </layout>

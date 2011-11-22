@@ -13,16 +13,27 @@
             <title>Advanced Entity</title>
             <sort_order>0</sort_order>
             <children>
-                <entities translate="title" module="ch_entity">
+                <manage translate="title" module="ch_entity">
                     <title>Manage Entities</title>
                     <sort_order>10</sort_order>
-                    <action>adminhtml/entity/index</action>
-                </entities>
-                <attributes translate="title" module="ch_entity">
-                    <title>Manage Attributes</title>
+                    <action>adminhtml/entity_manage/index</action>
+                </manage>
+                <configure>
+                    <title translate="title" module="ch_entity">Configure</title>
                     <sort_order>20</sort_order>
-                    <action>adminhtml/attribute/index</action>
-                </attributes>
+                    <children>
+                        <entities translate="title" module="ch_entity">
+                            <title>Entities</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/configure_entity/index</action>
+                        </entities>
+                        <attributes translate="title" module="ch_entity">
+                            <title>Attributes</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/configure_attribute/index</action>
+                        </attributes>
+                    </children>
+                </configure>
             </children>
         </ch_entity>
     </menu>

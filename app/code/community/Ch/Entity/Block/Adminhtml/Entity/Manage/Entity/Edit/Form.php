@@ -6,7 +6,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Block_Adminhtml_Entity_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
      * @return Mage_Adminhtml_Block_Widget_Form

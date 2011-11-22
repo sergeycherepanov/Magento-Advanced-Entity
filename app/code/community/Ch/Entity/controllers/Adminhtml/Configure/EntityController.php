@@ -6,7 +6,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Adminhtml_EntityController extends Mage_Adminhtml_Controller_Action
+class Ch_Entity_Adminhtml_Configure_EntityController extends Mage_Adminhtml_Controller_Action
 {
 
     /**
@@ -47,10 +47,6 @@ class Ch_Entity_Adminhtml_EntityController extends Mage_Adminhtml_Controller_Act
 
         $this->loadLayout();
         $this->initLayoutMessages('adminhtml/session');
-
-        $this->_addContent($this->getLayout()->createBlock('ch_entity/adminhtml_entity_edit'));
-        $this->_addLeft($this->getLayout()->createBlock('ch_entity/adminhtml_entity_edit_tabs'));
-
         $this->renderLayout();
     }
 
@@ -77,6 +73,7 @@ class Ch_Entity_Adminhtml_EntityController extends Mage_Adminhtml_Controller_Act
                 /** @var $setupModel Ch_Entity_Model_Resource_Setup */
                 $setupModel = Mage::getResourceModel('ch_entity/setup', 'core_write');
                 $setupModel->addEntityType($entityCode, $setupModel->getEntityConfiguration());
+                $setupModel->setDefaultSetToEntityType($entityCode);
 
                 /** @var $savedData array */
                 $savedData = $setupModel->getEntityType($entityCode);

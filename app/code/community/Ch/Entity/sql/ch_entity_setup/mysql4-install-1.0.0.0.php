@@ -93,6 +93,23 @@ $tableName = $this->getTable($entityTableName . '_varchar');
 $table = $connection->newTable($tableName);
 $this->createAttributeValueTable($table, Varien_Db_Ddl_Table::TYPE_VARCHAR, 255);
 
+// Create text value table
+$tableName = $this->getTable($entityTableName . '_text');
+/** @var $table Varien_Db_Ddl_Table */
+$table = $connection->newTable($tableName);
+$this->createAttributeValueTable($table, Varien_Db_Ddl_Table::TYPE_TEXT);
 
+
+// Create datetime value table
+$tableName = $this->getTable($entityTableName . '_datetime');
+/** @var $table Varien_Db_Ddl_Table */
+$table = $connection->newTable($tableName);
+$this->createAttributeValueTable($table, Varien_Db_Ddl_Table::TYPE_TIMESTAMP);
+
+// Create decimal value table
+$tableName = $this->getTable($entityTableName . '_decimal');
+/** @var $table Varien_Db_Ddl_Table */
+$table = $connection->newTable($tableName);
+$this->createAttributeValueTable($table, Varien_Db_Ddl_Table::TYPE_DECIMAL, '12,4');
 
 $this->installEntities();

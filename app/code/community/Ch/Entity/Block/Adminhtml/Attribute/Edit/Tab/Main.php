@@ -62,13 +62,6 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
             ));
         }
 
-        $fieldset->addField('frontend_label', 'text', array(
-            'name'      => 'frontend_label',
-            'label'     => $this->__('Frontend Label'),
-            'title'     => $this->__('Frontend Label'),
-            'required'  => true,
-        ));
-
         if ($isEditMode) {
             $fieldset->addField('attribute_code', 'text', array(
                 'name'      => 'attribute_code',

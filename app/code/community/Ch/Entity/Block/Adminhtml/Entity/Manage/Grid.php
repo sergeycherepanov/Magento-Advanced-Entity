@@ -6,7 +6,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
  */
 
-class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widget_Grid
+/**
+ * @method Ch_Entity_Block_Adminhtml_Entity_Manage_Grid setUseAjax(boolean $flag)
+ */
+class Ch_Entity_Block_Adminhtml_Entity_Manage_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
      * Initialize grid
@@ -14,8 +17,8 @@ class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     public function __construct()
     {
         parent::__construct();
-        $this->setId('attribute_grid');
-        $this->setDefaultSort('attribute_id');
+        $this->setId('entity_grid');
+        $this->setDefaultSort('advanced_type_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
@@ -26,8 +29,8 @@ class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Ch_Entity_Model_Resource_Entity_Attribute_Collection */
-        $collection = Mage::getResourceModel('ch_entity/entity_attribute_collection');
+        /** @var $collection Ch_Entity_Model_Resource_Entity_Type_Collection */
+        $collection = Mage::getResourceModel('ch_entity/entity_type_collection');
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -39,32 +42,32 @@ class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('attribute_id', array(
+        $this->addColumn('advanced_type_id', array(
             'header'    =>  $this->__('ID'),
             'align'     =>  'left',
-            'index'     =>  'attribute_id',
+            'index'     =>  'advanced_type_id',
             'type'  => 'number',
             'width' => '50px',
         ));
 
         $this->addColumn('entity_type_id', array(
-            'header'    =>  $this->__('Entity Type ID'),
+            'header'    =>  $this->__('Type ID'),
             'align'     =>  'left',
             'index'     =>  'entity_type_id',
             'type'  => 'number',
             'width' => '50px',
         ));
 
-        $this->addColumn('attribute_code', array(
-            'header'    =>  $this->__('Code'),
+        $this->addColumn('entity_type_name', array(
+            'header'    =>  $this->__('Name'),
             'align'     =>  'left',
-            'index'     =>  'attribute_code',
+            'index'     =>  'entity_type_name',
         ));
 
-        $this->addColumn('frontend_label', array(
-            'header'    =>  $this->__('Frontend Label'),
+        $this->addColumn('entity_type_code', array(
+            'header'    =>  $this->__('Code'),
             'align'     =>  'left',
-            'index'     =>  'frontend_label',
+            'index'     =>  'entity_type_code',
         ));
 
         $this->addColumn('action', array(
@@ -74,9 +77,9 @@ class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
             'getter'    =>  'getId',
             'actions'   =>  array(
                 array(
-                    'caption'   =>  $this->__('Edit'),
-                    'url'       =>  array('base'=> '*/*/edit'),
-                    'field'     =>  'id'
+                    'caption'   => $this->__('Manage Items'),
+                    'url'       => array('base'=> '*/*/manage'),
+                    'field'     => 'type_id',
                 )
             ),
             'filter'    =>  false,
@@ -92,11 +95,6 @@ class Ch_Entity_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/manage', array('type_id' => $row->getId()));
     }
 }

@@ -16,6 +16,8 @@ class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
 {
     /** @var Ch_Entity_Helper_Data */
     protected $_helper;
+    /** @var string */
+    protected $_eventPrefix = 'advanced_entity_type';
 
     /**
      * Initialize resource model
