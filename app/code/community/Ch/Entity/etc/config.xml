@@ -66,4 +66,23 @@
             </updates>
         </layout>
     </adminhtml>
+    <frontend>
+        <layout>
+            <updates>
+                <ch_entity>
+                    <file>ch_entity.xml</file>
+                </ch_entity>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <web>
+            <routers>
+                <ch_entity>
+                    <area>frontend</area>
+                    <class>Ch_Entity_Controller_Router_Standard</class>
+                </ch_entity>
+            </routers>
+        </web>
+    </default>
 </config>

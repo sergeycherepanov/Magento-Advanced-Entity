@@ -1,0 +1,31 @@
+<?php
+/**
+ * @category    Ch
+ * @package     Ch_Entity
+ * @copyright   Copyright (c) 2011 Sergey Cherepanov. (http://www.cherepanov.org.ua)
+ * @license     http://www.gnu.org/licenses/gpl.html GNU GENERAL PUBLIC LICENSE v3.0
+ */
+
+/** @var $this Ch_Entity_Block_List */
+/** @var $collection Ch_Entity_Model_Resource_Entity_Collection */
+$collection = $this->getEntityCollection();
+?>
+<ol>
+<?php
+    /** @var $entity Ch_Entity_Model_Entity */
+    foreach ($collection as $entity):?>
+    <li>
+        <?php foreach ($entity->getAttributes() as $attribute):?>
+            <ul>
+                <?php if ($attribute->getIsUserDefined()): ?>
+                <li>
+                    <strong><?php echo $attribute->getFrontendLabel()?>:</strong>
+                    <span><?php echo $entity->getData($attribute->getAttributeCode())?></span>
+                </li>
+                <?php endif;?>
+            </ul>
+        <?php endforeach;?>
+        <a href="<?php echo $this->getEntityUrl($entity)?>"><?php echo $this->__('More info')?></a>
+    </li>
+<?php endforeach; ?>
+</ol>
