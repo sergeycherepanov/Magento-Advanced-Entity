@@ -49,6 +49,22 @@ class Ch_Entity_Adminhtml_Entity_ManageController extends Mage_Adminhtml_Control
     }
 
     /**
+     * Manages entities by type
+     *
+     * @return void
+     */
+    public function manageGridAction()
+    {
+        $typeId     = $this->getRequest()->getParam('type_id');
+        $entityType = $this->_getEntityType($typeId);
+        Mage::register('entity_type', $entityType);
+
+        $this->loadLayout();
+        $this->initLayoutMessages('adminhtml/session');
+        $this->renderLayout('root');
+    }
+
+    /**
      * Add new entity
      *
      * @return void

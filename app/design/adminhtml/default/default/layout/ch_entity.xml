@@ -21,6 +21,10 @@
         </reference>
     </adminhtml_entity_manage_manage>
 
+    <adminhtml_entity_manage_managegrid>
+        <block type="ch_entity/adminhtml_entity_manage_entity_grid" name="root" />
+    </adminhtml_entity_manage_managegrid>
+
     <adminhtml_entity_manage_edit>
         <reference name="content">
             <block type="ch_entity/adminhtml_entity_manage_entity_edit" name="edit_entity" />

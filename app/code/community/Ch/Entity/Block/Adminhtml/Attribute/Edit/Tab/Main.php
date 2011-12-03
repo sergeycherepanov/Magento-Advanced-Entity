@@ -46,6 +46,12 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
             $attribute->setEntityTypeId($this->getRequest()->getParam('entity_type'));
         }
 
+        if ($note = $attribute->getData('note')) {
+            $advancedFlags = explode(',', $note);
+        } else {
+            $advancedFlags = array();
+        }
+
         $this->setForm($form);
 
         $fieldset = $form->addFieldset(
@@ -88,6 +94,8 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
             $inputTypesArray[$type['value']] = $type['label'];
         }
 
+        $booleanOptions = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
+
         $fieldset->addField('frontend_input', 'select', array(
             'name'      => 'frontend_input',
             'label'     => $this->__('Frontend Input'),
@@ -96,6 +104,24 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
             'value'     => 'text',
             'options'   => $inputTypesArray,
         ));
+
+        $fieldset->addField('is_required', 'select', array(
+            'name'      => 'is_required',
+            'label'     => $this->__('Values Required'),
+            'title'     => $this->__('Values Required'),
+            'required'  => true,
+            'values'   => $booleanOptions,
+        ));
+
+        $fieldset->addField('in_grid', 'select', array(
+            'name'      => 'in_grid',
+            'label'     => $this->__('Show column in Grid'),
+            'title'     => $this->__('Show column in Grid'),
+            'value'     => in_array('in_grid', $advancedFlags),
+            'values'    => $booleanOptions,
+        ));
+
+        $attribute->setData('in_grid', in_array('in_grid', $advancedFlags));
 
         $form->setValues($attribute->getData());
 

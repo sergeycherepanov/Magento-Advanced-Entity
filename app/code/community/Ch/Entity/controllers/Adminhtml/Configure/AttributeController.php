@@ -102,8 +102,25 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
                 $attributeModel->addData(
                     array(
                         'frontend_label' => $data['frontend_label'],
+                        'is_required'    => $data['is_required'],
                     )
                 );
+                
+                if ($note = $attributeModel->getData('note')) {
+                    $advancedFlags = explode(',', $note);
+                } else {
+                    $advancedFlags = array();
+                }
+                if (isset($data['in_grid'])) {
+                    $flagIndex = array_search('in_grid', $advancedFlags);
+                    if ($data['in_grid']) {
+                        $advancedFlags[] = 'in_grid';
+                    } else if ($flagIndex){
+                        unset($advancedFlags[$flagIndex]);
+                    }
+                    $advancedFlags = array_unique($advancedFlags);
+                }
+                $attributeModel->setData('note', implode(',', $advancedFlags));
             } else {
                 /** @var $entity Mage_Eav_Model_Entity */
                 $entity = Mage::getModel('eav/entity');
@@ -136,6 +153,7 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
                     array(
                         'frontend_label' => $data['frontend_label'],
                         'frontend_input' => $data['frontend_input'],
+                        'is_required'    => $data['is_required'],
                         'attribute_code' => $attributeCode,
                         'backend_type'   => $backendType,
                         'attribute_code' => $attributeCode,
@@ -146,6 +164,21 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
                         'is_user_defined'    => 1,
                     )
                 );
+                if ($note = $attributeModel->getData('note')) {
+                    $advancedFlags = explode(',', $note);
+                } else {
+                    $advancedFlags = array();
+                }
+                if (isset($data['in_grid'])) {
+                    $flagIndex = array_search('in_grid', $advancedFlags);
+                    if ($data['in_grid']) {
+                        $advancedFlags[] = 'in_grid';
+                    } else if ($flagIndex){
+                        unset($advancedFlags[$flagIndex]);
+                    }
+                    $advancedFlags = array_unique($advancedFlags);
+                }
+                $attributeModel->setData('note', implode(',', $advancedFlags));
             }
             $frontendInput = $attributeModel->getData('frontend_input');
             if ('select' == $frontendInput || 'multiselect' == $frontendInput) {

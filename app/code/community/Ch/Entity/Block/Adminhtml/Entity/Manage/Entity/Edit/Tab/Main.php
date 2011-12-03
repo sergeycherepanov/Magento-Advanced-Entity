@@ -71,9 +71,8 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Edit_Tab_Main extends Mage_
                     'name'      => $attributeCode,
                     'title'     => $attributeLabel,
                     'label'     => $attributeLabel,
+                    'required' => (bool) $attribute->getData('is_required'),
                 ));
-                
-
                 switch ($inputType) {
                     case 'select':
                         /** @var $source Mage_Eav_Model_Entity_Attribute_Source_Table */

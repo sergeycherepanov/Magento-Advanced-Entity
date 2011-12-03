@@ -13,6 +13,8 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Grid extends Mage_Adminhtml
 {
     /** @var Ch_Entity_Model_Entity_Type */
     protected $_entityType;
+    /** @var array */
+    protected $_gridAttributes;
 
     /**
      * @return Ch_Entity_Model_Entity_Type
@@ -39,12 +41,76 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Grid extends Mage_Adminhtml
     }
 
     /**
+     * @return array
+     */
+    public function getGridAttributes()
+    {
+        if (is_null($this->_gridAttributes)) {
+            $this->_gridAttributes = array();
+            $attributes = $this->getEntityType()->getEntityModel()->getAttributes();
+            foreach ($attributes as $attribute) {
+                if ($attribute->getIsUserDefined() && ($note = $attribute->getNote())) {
+                    $advancedFlags = explode(',', $note);
+                    if (in_array('in_grid', $advancedFlags)) {
+                        $attributeCode = $attribute->getData('attribute_code');
+                        $inputType     = $attribute->getData('frontend_input');
+                        $this->_gridAttributes[$attributeCode] = array(
+                            'label'   => $attribute->getData('frontend_label'),
+                            'type'    => $attribute->getData('frontend_input'),
+                            'options' => array(),
+                        );
+                        $options = null;
+                        switch ($inputType) {
+                            case 'select':
+                                /** @var $source Mage_Eav_Model_Entity_Attribute_Source_Table */
+                                $source  = $attribute->getSource();
+                                $options = $source->getAllOptions(false, true);
+                                $optionsHash = array();
+                                foreach ($options as $option) {
+                                    $optionsHash[$option['value']] = $option['label'];
+                                }
+                                $this->_gridAttributes[$attributeCode]['options'] = $optionsHash;
+                                $this->_gridAttributes[$attributeCode]['type']    = 'options';
+                                break;
+                            case 'multiselect':
+                                /** @var $source Mage_Eav_Model_Entity_Attribute_Source_Table */
+                                $source  = $attribute->getSource();
+                                $options = $source->getAllOptions(false, true);
+                                $optionsHash = array();
+                                foreach ($options as $option) {
+                                    $optionsHash[$option['value']] = $option['label'];
+                                }
+                                $this->_gridAttributes[$attributeCode]['options'] = $optionsHash;
+                                $this->_gridAttributes[$attributeCode]['type']    = 'options';
+                                break;
+                            case 'boolean':
+                                $options = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
+                                $optionsHash = array();
+                                foreach ($options as $option) {
+                                    $optionsHash[$option['value']] = $option['label'];
+                                }
+                                $this->_gridAttributes[$attributeCode]['options'] = $optionsHash;
+                                $this->_gridAttributes[$attributeCode]['type']    = 'options';
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        return $this->_gridAttributes;
+    }
+
+    /**
      * @return Ch_Entity_Block_Adminhtml_Items_Grid
      */
     protected function _prepareCollection()
     {
         /** @var $collection Ch_Entity_Model_Resource_Entity_Collection */
         $collection = $this->getEntityType()->getEntityModel()->getResourceCollection();
+        $gridAttributes = $this->getGridAttributes();
+        if (count($gridAttributes)) {
+            $collection->addAttributeToSelect(array_keys($gridAttributes));
+        }
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -63,6 +129,15 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Grid extends Mage_Adminhtml
             'type'  => 'number',
             'width' => '50px',
         ));
+
+        foreach ($this->getGridAttributes() as $attributeCode => $attributeData) {
+            $this->addColumn($attributeCode, array(
+                'index'     => $attributeCode,
+                'header'    => $attributeData['label'],
+                'type'      => $attributeData['type'],
+                'options'   => $attributeData['options'],
+            ));
+        }
 
         $this->addColumn('created_at', array(
             'header'    =>  $this->__('Created At'),
@@ -111,5 +186,14 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Grid extends Mage_Adminhtml
                  'type_id' => $this->getEntityType()->getId()
             )
         );
+    }
+
+    /**
+     * @param Ch_Entity_Model_Entity $row
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/manageGrid', array('type_id' => $this->getEntityType()->getId()));
     }
 }

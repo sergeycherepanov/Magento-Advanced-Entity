@@ -14,6 +14,7 @@
  */
 class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
 {
+    const MAPPED_MODEL_PATH = 'global/models/ch_entity/mapped_type/';
     /** @var Ch_Entity_Helper_Data */
     protected $_helper;
     /** @var string */
@@ -38,6 +39,11 @@ class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
         return $this->_helper;
     }
 
+    public function getMappedEntityModel($entityTypeCode)
+    {
+        return (string) Mage::getConfig()->getNode(self::MAPPED_MODEL_PATH . $entityTypeCode);
+    }
+
     /**
      * @param null $entityTypeCode
      * @return Ch_Entity_Model_Entity
@@ -50,8 +56,14 @@ class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
         if (!$entityTypeCode) {
             Mage::throwException($this->_helper->__('Entity type not defined.'));
         }
+
+        $modelClass = $this->getMappedEntityModel($entityTypeCode);
+        if (!$modelClass) {
+            $modelClass = 'ch_entity/entity';
+        }
+
         /** @var $entityModel Ch_Entity_Model_Entity */
-        $entityModel = Mage::getModel('ch_entity/entity', array('entity_type_code' => $entityTypeCode));
+        $entityModel = Mage::getModel($modelClass, array('entity_type_code' => $entityTypeCode));
         return $entityModel;
     }
 

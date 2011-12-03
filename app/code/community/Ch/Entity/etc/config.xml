@@ -28,6 +28,11 @@
             <ch_entity>
                 <class>Ch_Entity_Model</class>
                 <resourceModel>ch_entity_resource</resourceModel>
+                <!--
+                <mapped_type>
+                    <my_entity_code>ch_entity/my_entity_model</my_entity_code>
+                </mapped_type>
+                -->
             </ch_entity>
             <ch_entity_resource>
                 <class>Ch_Entity_Model_Resource</class>

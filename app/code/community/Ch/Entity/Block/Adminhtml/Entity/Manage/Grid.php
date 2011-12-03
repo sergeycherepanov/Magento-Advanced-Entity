@@ -21,7 +21,7 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Grid extends Mage_Adminhtml_Block_
         $this->setDefaultSort('advanced_type_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-        $this->setUseAjax(true);
+        $this->setUseAjax(false);
     }
 
     /**

@@ -8,6 +8,33 @@
 
 class Ch_Entity_IndexController extends Mage_Core_Controller_Front_Action
 {
+
+    /**
+     * @return Ch_Entity_Model_Entity_Type
+     */
+    public function getEntityType()
+    {
+        return Mage::registry('entity_type_model');
+    }
+
+    /**
+     * @param null|array $handles
+     * @param bool $generateBlocks
+     * @param bool $generateXml
+     * @return Mage_Core_Controller_Varien_Action
+     */
+    public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
+    {
+        if (is_null($handles)) {
+            $handles = array(
+                'default',
+                $this->getFullActionName() . '_' . strtolower($this->getEntityType()->getEntityTypeCode())
+            );
+        }
+        return parent::loadLayout($handles, $generateBlocks, $generateXml);
+    }
+
+
     /**
      * Render entity list page
      *

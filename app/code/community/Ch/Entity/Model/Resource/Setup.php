@@ -56,7 +56,10 @@ class Ch_Entity_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'nullable'  => false
                 ));
 
-        $table->addIndex('ATTRIBUTE_VALUE_IDX', array('attribute_id', 'store_id', 'entity_id'), array('unique'));
+        $table->addIndex('ATTRIBUTE_VALUE_IDX',
+                         array('attribute_id', 'store_id', 'entity_id'),
+                         array('type'=> 'unique')
+        );
         $this->getConnection()->createTable($table);
 
         // Temporary fix for AUTO_INCREMENT property
