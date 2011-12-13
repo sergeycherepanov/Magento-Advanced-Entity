@@ -10,6 +10,7 @@
 /** @var $collection Ch_Entity_Model_Resource_Entity_Collection */
 $collection = $this->getEntityCollection();
 ?>
+<?php echo $this->getChildHtml('pager'); ?>
 <ol>
 <?php
     /** @var $entity Ch_Entity_Model_Entity */
@@ -29,3 +30,4 @@ $collection = $this->getEntityCollection();
     </li>
 <?php endforeach; ?>
 </ol>
+<?php echo $this->getChildHtml('pager'); ?>

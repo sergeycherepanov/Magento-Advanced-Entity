@@ -14,6 +14,20 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
     protected $_helper;
 
     /**
+     * @return Ch_Entity_Block_List
+     */
+    protected function _beforeToHtml()
+    {
+        parent::_beforeToHtml();
+        /** @var $pager Mage_Page_Block_Html_Pager */
+        $pager = $this->getChild('pager');
+        if ($pager) {
+            $pager->setCollection($this->getEntityCollection());
+        }
+        return $this;
+    }
+
+    /**
      * @return Ch_Entity_Helper_Data
      */
     protected function _getHelper()

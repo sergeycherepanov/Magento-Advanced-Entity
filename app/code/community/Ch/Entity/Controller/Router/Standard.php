@@ -50,17 +50,15 @@ class Ch_Entity_Controller_Router_Standard extends Mage_Core_Controller_Varien_R
         /** @var $request Mage_Core_Controller_Request_Http */
         /** @var $front Mage_Core_Controller_Varien_Front  */
         $front = $this->getFront();
-        $path = trim($request->getPathInfo(), '/');
+        $path  = trim($request->getPathInfo(), '/');
 
         $matches = array();
         if (preg_match($this->_listPattern, $path, $matches)) {
             $entityCode = $matches[1];
-            $request->setParam('entity_code', $entityCode);
             $actionName = 'list';
         } else if (preg_match($this->_viewPattern, $path, $matches)) {
             $entityCode = $matches[1];
             $entityId = $matches[2];
-            $request->setParam('entity_code', $entityCode);
             $request->setParam('entity_id', $entityId);
             $actionName = 'view';
         } else {

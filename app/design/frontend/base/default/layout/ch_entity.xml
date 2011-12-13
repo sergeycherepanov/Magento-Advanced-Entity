@@ -10,7 +10,9 @@
 <layout>
     <ch_entity_index_list>
         <reference name="content">
-            <block type="ch_entity/list" name="entities_list" template="ch_entity/list.phtml" />
+            <block type="ch_entity/list" name="entities_list" template="ch_entity/list.phtml">
+                <block type="ch_entity/list_pager" name="pager" />
+            </block>
         </reference>
     </ch_entity_index_list>
 
