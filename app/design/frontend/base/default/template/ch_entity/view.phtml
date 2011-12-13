@@ -12,12 +12,16 @@ $entity = $this->getEntity();
 ?>
 <?php foreach ($entity->getAttributes() as $attribute):?>
     <ul>
-        <?php if ($attribute->getIsUserDefined()): ?>
+        <?php
+        if ($attribute->getIsUserDefined()):
+            $value = $this->getAttributeValue($entity, $attribute);
+            if ($value):?>
         <li>
             <strong><?php echo $attribute->getFrontendLabel()?>:</strong>
-            <span><?php echo $entity->getData($attribute->getAttributeCode())?></span>
+            <span><?php echo $value?></span>
         </li>
-        <?php endif;?>
+        <?php endif;
+        endif; ?>
     </ul>
 <?php endforeach;?>
 <a href="<?php echo $this->getListUrl()?>"><?php echo $this->__('Back')?></a>

@@ -10,7 +10,7 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
 {
     /** @var Ch_Entity_Model_Resource_Entity_Collection */
     protected $_collection;
-    /** @var Ch_Entity_Helper_Data */
+    /** @var Ch_Entity_Helper_Entity */
     protected $_helper;
 
     /**
@@ -28,12 +28,12 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Ch_Entity_Helper_Data
+     * @return Ch_Entity_Helper_Entity
      */
     protected function _getHelper()
     {
         if (is_null($this->_helper)) {
-            $this->_helper = Mage::helper('ch_entity');
+            $this->_helper = Mage::helper('ch_entity/entity');
         }
         return $this->_helper;
     }
@@ -56,6 +56,16 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
             $this->_collection->addAttributeToSelect('*');
         }
         return $this->_collection;
+    }
+
+    /**
+     * @param Ch_Entity_Model_Entity $entity
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @return string
+     */
+    public function getAttributeValue(Ch_Entity_Model_Entity $entity, Mage_Eav_Model_Entity_Attribute $attribute)
+    {
+        return $this->_getHelper()->getAttributeValue($entity, $attribute);
     }
 
     /**
