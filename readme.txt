@@ -8,4 +8,4 @@ Installation:
 
 Frontend view:
 
-For view you entities, you must go to "http://yourdomainname.com/index.php/your_entity_code/list".
+For view your entities, you must go to "http://yourdomainname.com/index.php/your_entity_code/list".
