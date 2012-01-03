@@ -135,5 +135,24 @@ class Ch_Entity_Adminhtml_Entity_ManageController extends Mage_Adminhtml_Control
             $this->_redirectReferer();
         }
     }
+
+    /**
+     * Delete entity from database
+     */
+    public function deleteAction()
+    {
+        $typeId      = $this->getRequest()->getParam('type_id');
+        $entityId    = $this->getRequest()->getParam('id');
+        $entityType  = $this->_getEntityType($typeId);
+        $entityModel = $entityType->getEntityModel();
+        $entityModel->load($entityId);
+        if ($entityModel->getId()) {
+            $entityModel->delete();
+            $this->_getSession()->addSuccess('Entity successfully deleted.');
+        } else {
+            $this->_getSession()->addError('Entity not longer exists.');
+        }
+        $this->_redirect('*/*/manage', array('type_id' => $entityType->getId()));
+    }
 }
 

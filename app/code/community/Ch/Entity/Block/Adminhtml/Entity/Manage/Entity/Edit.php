@@ -42,4 +42,17 @@ class Ch_Entity_Block_Adminhtml_Entity_Manage_Entity_Edit
             }
         ";
     }
+
+    /**
+     * @return string
+     */
+    public function getDeleteUrl()
+    {
+        return $this->getUrl('*/*/delete',
+            array(
+                'type_id'        => $this->getRequest()->getParam('type_id'),
+                $this->_objectId => $this->getRequest()->getParam($this->_objectId),
+            )
+        );
+    }
 }
