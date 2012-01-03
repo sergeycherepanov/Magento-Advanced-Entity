@@ -86,8 +86,8 @@ class Ch_Entity_Block_Adminhtml_Attribute_Edit_Tab_Main
             ));
         }
 
-        /** @var $inputTypes Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype */
-        $inputTypes = Mage::getModel('eav/adminhtml_system_config_source_inputtype');
+        /** @var $inputTypes Ch_Entity_Model_System_Config_Source_Input_Type */
+        $inputTypes = Mage::getModel('ch_entity/system_config_source_input_type');
         $inputTypesArray = array();
 
         foreach ($inputTypes->toOptionArray() as $type) {

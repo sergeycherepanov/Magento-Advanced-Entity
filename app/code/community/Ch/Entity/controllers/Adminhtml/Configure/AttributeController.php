@@ -137,8 +137,8 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
                     Mage::throwException($helper->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.'));
                 }
                 // Validate frontend_input
-                /** @var $validatorInputType Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator */
-                $validatorInputType = Mage::getModel('eav/adminhtml_system_config_source_inputtype_validator');
+                /** @var $validatorInputType Ch_Entity_Model_System_Config_Source_Input_Type_Validator */
+                $validatorInputType = Mage::getModel('ch_entity/system_config_source_input_type_validator');
                 if (!$validatorInputType->isValid($data['frontend_input'])) {
                     foreach ($validatorInputType->getMessages() as $message) {
                         $session->addError($message);
@@ -147,6 +147,7 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
                     return;
                 }
                 $backendType        = $attributeModel->getBackendTypeByInput($data['frontend_input']);
+                $backendModel       = $this->_getBackendModelByType($data['frontend_input']);
                 $attributeSetId     = $entity->getEntityType()->getDefaultAttributeSetId();
                 $attributeGroupId   = $setupModel->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
                 $attributeModel->addData(
@@ -156,6 +157,7 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
                         'is_required'    => $data['is_required'],
                         'attribute_code' => $attributeCode,
                         'backend_type'   => $backendType,
+                        'backend_model'  => $backendModel,
                         'attribute_code' => $attributeCode,
                         'entity_type'    => $entity->getEntityType(),
                         'entity_type_id' => $entity->getTypeId(),
@@ -215,6 +217,21 @@ class Ch_Entity_Adminhtml_Configure_AttributeController extends Mage_Adminhtml_C
     protected function _getAttributeModel()
     {
         return Mage::getModel('ch_entity/entity_attribute');
+    }
+
+    /**
+     * @param string $frontendType
+     * @return null|string
+     */
+    protected function _getBackendModelByType($frontendType)
+    {
+        $result = null;
+        switch ($frontendType){
+            case 'image':
+                $result = 'ch_entity/entity_attribute_backend_image';
+                break;
+        }
+        return $result;
     }
 
     /**
