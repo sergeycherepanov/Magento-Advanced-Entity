@@ -11,7 +11,7 @@
     <menu>
         <ch_entity>
             <title>Advanced Entity</title>
-            <sort_order>0</sort_order>
+            <sort_order>75</sort_order>
             <children>
                 <manage translate="title" module="ch_entity">
                     <title>Manage Entities</title>
