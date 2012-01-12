@@ -51,9 +51,10 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
             if ($this->_entityTypeCode) {
                 /** @var $entityTypeModel Ch_Entity_Model_Entity_Type */
                 $entityTypeModel = Mage::getModel('ch_entity/entity_type');
+                $entityTypeModel->setEntityTypeCode($this->_entityTypeCode);
                 $this->setEntityTypeModel($entityTypeModel);
             } else {
-                Mage::throwException($this->_helper->__('Entity type model is not defined.'));
+                Mage::throwException($this->_getHelper()->__('Entity type model is not defined.'));
             }
         }
         return $this->_entityTypeModel;

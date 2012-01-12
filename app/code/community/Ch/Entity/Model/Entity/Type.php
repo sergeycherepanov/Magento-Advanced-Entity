@@ -9,6 +9,7 @@
 /**
  * Entity type model
  * @method string getEntityTypeCode()
+ * @method Ch_Entity_Model_Entity_Type setEntityTypeCode(string $code)
  * @method string getEntityTypeId()
  * @method string getEntityTypeName()
  */
@@ -39,6 +40,10 @@ class Ch_Entity_Model_Entity_Type extends Mage_Core_Model_Abstract
         return $this->_helper;
     }
 
+    /**
+     * @param string $entityTypeCode
+     * @return string
+     */
     public function getMappedEntityModel($entityTypeCode)
     {
         return (string) Mage::getConfig()->getNode(self::MAPPED_MODEL_PATH . $entityTypeCode);
