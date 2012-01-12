@@ -12,6 +12,10 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
     protected $_collection;
     /** @var Ch_Entity_Helper_Entity */
     protected $_helper;
+    /** @var Ch_Entity_Model_Entity_Type */
+    protected $_entityTypeModel;
+    /** @var string */
+    protected $_entityTypeCode;
 
     /**
      * @return Ch_Entity_Block_List
@@ -41,9 +45,48 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
     /**
      * @return Ch_Entity_Model_Entity_Type
      */
-    public function getEntityType()
+    public function getEntityTypeModel()
     {
-        return Mage::registry('entity_type_model');
+        if (is_null($this->_entityTypeModel)) {
+            if ($this->_entityTypeCode) {
+                /** @var $entityTypeModel Ch_Entity_Model_Entity_Type */
+                $entityTypeModel = Mage::getModel('ch_entity/entity_type');
+                $this->setEntityTypeModel($entityTypeModel);
+            } else {
+                Mage::throwException($this->_helper->__('Entity type model is not defined.'));
+            }
+        }
+        return $this->_entityTypeModel;
+    }
+
+    /**
+     * @param Ch_Entity_Model_Entity_Type $model
+     * @return Ch_Entity_Block_List
+     */
+    public function setEntityTypeModel(Ch_Entity_Model_Entity_Type $model)
+    {
+        $this->_entityTypeModel = $model;
+        $this->_entityTypeCode  = $model->getEntityTypeCode();
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityTypeCode()
+    {
+        return $this->_entityTypeCode;
+    }
+
+    /**
+     * @param $code
+     * @return Ch_Entity_Block_List
+     */
+    public function setEntityTypeCode($code)
+    {
+        $this->_entityTypeCode = $code;
+        unset($this->_entityTypeModel);
+        return $this;
     }
 
     /**
@@ -52,7 +95,7 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
     public function getEntityCollection()
     {
         if (is_null($this->_collection)) {
-            $this->_collection = $this->getEntityType()->getEntityModel()->getResourceCollection();
+            $this->_collection = $this->getEntityTypeModel()->getEntityModel()->getResourceCollection();
             $this->_collection->addAttributeToSelect('*');
         }
         return $this->_collection;
@@ -77,7 +120,7 @@ class Ch_Entity_Block_List extends Mage_Core_Block_Template
         return $this->_getHelper()->getUrlModel()->getUrl(
             null,
             array(
-                '_entity_code' => $this->getEntityType()->getEntityTypeCode(),
+                '_entity_code' => $this->getEntityTypeModel()->getEntityTypeCode(),
                 '_entity_id'   => $entity->getId(),
             )
         );  

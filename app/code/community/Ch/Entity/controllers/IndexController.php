@@ -12,7 +12,7 @@ class Ch_Entity_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * @return Ch_Entity_Model_Entity_Type
      */
-    public function getEntityType()
+    public function getEntityTypeModel()
     {
         return Mage::registry('entity_type_model');
     }
@@ -28,7 +28,7 @@ class Ch_Entity_IndexController extends Mage_Core_Controller_Front_Action
         if (is_null($handles)) {
             $handles = array(
                 'default',
-                $this->getFullActionName() . '_' . strtolower($this->getEntityType()->getEntityTypeCode())
+                $this->getFullActionName() . '_' . strtolower($this->getEntityTypeModel()->getEntityTypeCode())
             );
         }
         return parent::loadLayout($handles, $generateBlocks, $generateXml);
@@ -43,6 +43,11 @@ class Ch_Entity_IndexController extends Mage_Core_Controller_Front_Action
     public function listAction()
     {
         $this->loadLayout();
+        /** @var $listBlock Ch_Entity_Block_List */
+        $listBlock = $this->getLayout()->getBlock('entity_list');
+        if ($listBlock) {
+            $listBlock->setEntityTypeModel($this->getEntityTypeModel());
+        }
         $this->renderLayout();
     }
 
